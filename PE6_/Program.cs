@@ -8,60 +8,62 @@ namespace PE6
     // Author: Grace Ledford 
     // Purpose: Parsing and Formatting
     // Restrictions: None
-    class Program
+    static class Program
     {
         // Method: Main
-        // Purpose: 
+        // Purpose: Create a number guessing game, by generating a random integer number between 0 and 100 (inclusive) and a player will try to guess it. 
         // Restrictions: None
         static void Main(string[] args)
         {
             string stringNumber;
             Random rand = new Random();
-
-            // generate a random number between 0 inclusive and 101 exclusive
+            // generates a random number between 0 inclusive and 101 exclusive.
             int randomNumber = rand.Next(0, 101);
+            // prints the random number.
             Console.WriteLine(randomNumber);
 
             int i;
-            for (i = 0; i < 8; ++i)    
+            // a loop is used to give the user 8 tries to guess a number.
+            for (i = 0; i < 8; ++i)
             {
-                Console.WriteLine("Guess a number(should be 0-100): " );
+                Console.WriteLine("Guess a number(should be 0-100): ");
 
                 stringNumber = Console.ReadLine();
                 int numberGuessed;
-                if(int.TryParse(stringNumber, out numberGuessed) == false)
+                // parses the value the user enters and checks if their input is valid. 
+                if (int.TryParse(stringNumber, out numberGuessed) == false)
                 {
+                    i--;
                     // goes back to the for loop.
-                    i--;
                     continue;
                 }
-                if(numberGuessed < 0 || numberGuessed > 100)
+                if (numberGuessed < 0 || numberGuessed > 100)
                 {
                     i--;
                     continue;
                 }
-                if(numberGuessed < randomNumber)
+                if (numberGuessed < randomNumber)
                 {
+                    // tells user if their guess was correct (high or low).
                     Console.WriteLine("Number is too low!");
-                } else if (numberGuessed > randomNumber)
+                }
+                else if (numberGuessed > randomNumber)
                 {
                     Console.WriteLine("Number is too high!");
                 }
-                else 
+                else
                 {
-                    Console.WriteLine($"It took you {i +1} tries to get the number correct!");
+                    // if the correct number is guessed before the 8 turns are up, the user is told how many turns it took to end the loop.
+                    Console.WriteLine($"It took you {i + 1} tries to get the number correct!");
                     break;
                 }
-
-
-
             }
-          // checks to see if we ran out of guesses.
-            if(i == 8)
+            // checks to see if user ran out of guesses and tells them what it was.
+            if (i == 8)
             {
                 Console.WriteLine("Ran out of guesses! The correct number was: " + randomNumber);
             }
 
-    }
+        }
     }
 }
